@@ -1,0 +1,66 @@
+:root {
+  /* Brand Colors */
+  --color-primary: #1A7F3C;
+  --color-primary-hover: #14612e;
+  
+  /* Status Colors */
+  --color-success: #2ECC71;
+  --color-warning: #F4D03F;
+  --color-danger: #E74C3C;
+  --color-info: #3498db;
+
+  /* Neutral Colors */
+  --color-bg: #F4F6F7;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #333333;
+  --color-text-secondary: #666666;
+  --color-border: #E0E0E0;
+
+  /* Typography */
+  --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  
+  /* Spacing & Layout */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  padding: 0.5rem;
+  border-radius: var(--border-radius-sm);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
