@@ -14,11 +14,22 @@ export const getPeritagens = async () => {
 };
 
 export const savePeritagem = async (peritagem) => {
+    console.log("Iniciando salvamento de peritagem...", peritagem);
+
     // Get current user session for created_by
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+    if (sessionError || !session?.user) {
+        console.error("Erro de sessão ao salvar:", sessionError);
+        throw new Error("Usuário não autenticado. Faça login novamente.");
+    }
+
+    // Basic validation
+    if (!peritagem.items || peritagem.items.length === 0) {
+        // Allow saving without items? Maybe warn.
+    }
 
     // Convert property names if they differ from DB snake_case (optional, but good practice)
-    // Here I'll match the DB table columns I created
     const peritagemData = {
         orcamento: peritagem.orcamento,
         cliente: peritagem.cliente,
@@ -31,8 +42,10 @@ export const savePeritagem = async (peritagem) => {
         items: peritagem.items || [],
         status: peritagem.status || 'Peritagem Criada',
         stage_index: peritagem.stage_index || 0,
-        created_by: session?.user?.id
+        created_by: session.user.id
     };
+
+    console.log("Payload preparado para envio:", peritagemData);
 
     const { data, error } = await supabase
         .from('peritagens')
@@ -41,9 +54,11 @@ export const savePeritagem = async (peritagem) => {
         .single();
 
     if (error) {
-        console.error('Erro ao salvar peritagem:', error);
-        throw error;
+        console.error('Erro detalhado do Supabase:', error);
+        throw new Error(`Erro ao salvar no banco de dados: ${error.message || error.details}`);
     }
+
+    console.log("Peritagem salva com sucesso:", data);
     return data;
 };
 

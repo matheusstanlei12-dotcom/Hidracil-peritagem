@@ -135,7 +135,7 @@ export default function NewPeritagem() {
                     <div style={{ marginBottom: '2rem' }}>
                         <h3 style={{ fontSize: '0.75rem', color: '#999', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '1.5rem', fontWeight: '600', textAlign: 'center' }}>IDENTIFICAÇÃO</h3>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 3fr', gap: '1rem', marginBottom: '1rem' }}>
+                        <div className="grid-2-cols" style={{ display: 'grid', gridTemplateColumns: '1fr 3fr', gap: '1rem', marginBottom: '1rem' }}>
                             <div>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.8rem', color: '#666', textAlign: 'center' }}>Orçamento*</label>
                                 <input type="text" name="orcamento" required value={formData.orcamento} onChange={handleInputChange} className="form-input" />
@@ -146,7 +146,7 @@ export default function NewPeritagem() {
                             </div>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: '3fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                        <div className="grid-2-cols" style={{ display: 'grid', gridTemplateColumns: '3fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                             <div>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.8rem', color: '#666', textAlign: 'center' }}>Equipamento*</label>
                                 <input type="text" name="equipamento" required value={formData.equipamento} onChange={handleInputChange} className="form-input" />
@@ -157,7 +157,7 @@ export default function NewPeritagem() {
                             </div>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                        <div className="grid-3-cols" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                             <div>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.8rem', color: '#666', textAlign: 'center' }}>CX</label>
                                 <input type="text" name="cx" value={formData.cx} onChange={handleInputChange} className="form-input" />
@@ -197,7 +197,7 @@ export default function NewPeritagem() {
                                         </button>
                                     )}
 
-                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                                    <div className="grid-3-cols" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                                         <div>
                                             <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.8rem', color: '#666', textAlign: 'center' }}>Componente</label>
                                             <select
@@ -357,7 +357,7 @@ export default function NewPeritagem() {
                     </div>
 
                     {/* Footer Actions */}
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '3rem' }}>
+                    <div className="action-buttons" style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '3rem' }}>
                         <button
                             type="button"
                             onClick={() => navigate('/peritagens')}
@@ -398,16 +398,39 @@ export default function NewPeritagem() {
           padding: 0.75rem;
           border: 1px solid #E5E7EB;
           border-radius: 6px;
-          font-size: 0.85rem;
+          font-size: 1rem; /* Better for mobile to prevent zoom */
           outline: none;
           color: #333;
-          text-align: center;
+          /* text-align: center; Removed to allow left align on mobile which is standard */
         }
         .form-input::placeholder {
           color: #9CA3AF;
         }
         .form-input:focus {
           border-color: #006945;
+          box-shadow: 0 0 0 2px rgba(0, 105, 69, 0.1);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .grid-2-cols, .grid-3-cols, .grid-header {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+            form {
+                padding: 1rem !important;
+            }
+            h2 {
+                font-size: 1rem !important;
+            }
+            .action-buttons {
+                flex-direction: column-reverse;
+                width: 100%;
+            }
+            .action-buttons button {
+                width: 100%;
+                padding: 1rem !important;
+            }
         }
       `}</style>
         </div>
