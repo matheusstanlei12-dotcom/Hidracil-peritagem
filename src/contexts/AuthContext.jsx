@@ -22,8 +22,13 @@ export const AuthProvider = ({ children }) => {
             }
 
             try {
+                console.log("Initializing auth...");
                 const { data: { session }, error } = await supabase.auth.getSession();
-                if (error) throw error;
+                if (error) {
+                    console.error("Error getting session:", error);
+                    throw error;
+                }
+                console.log("Session retrieved:", session ? "Session found" : "No session");
 
                 if (session?.user && mounted) {
                     await fetchProfile(session.user.id, session.user.email);
