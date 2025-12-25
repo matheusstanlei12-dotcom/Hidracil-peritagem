@@ -30,7 +30,8 @@ export default function Register() {
             await register(
                 formData.email,
                 formData.password,
-                formData.role
+                formData.role,
+                formData.name
             );
             navigate('/');
         } catch (err) {

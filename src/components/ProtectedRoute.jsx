@@ -12,6 +12,50 @@ export default function ProtectedRoute({ children, allowedRoles }) {
         return <Navigate to="/login" replace />;
     }
 
+    if (user.status === 'Pendente' || user.status === 'Inativo') {
+        return (
+            <div style={{
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'var(--color-bg)',
+                padding: '2rem',
+                textAlign: 'center'
+            }}>
+                <div style={{
+                    backgroundColor: 'white',
+                    padding: '2rem',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                    maxWidth: '500px'
+                }}>
+                    <h1 style={{ color: '#f1c40f', marginBottom: '1rem' }}>Acesso Pendente</h1>
+                    <p style={{ marginBottom: '1.5rem', color: '#666' }}>
+                        Seu cadastro foi realizado com sucesso, mas ainda precisa ser aprovado por um Gestor.
+                        <br /><br />
+                        Por favor, aguarde a liberação ou entre em contato com a administração.
+                    </p>
+                    <button
+                        onClick={() => window.location.href = '/login'} // Force reload/logout flow via simple redirect usually handled by auth clear
+                        style={{
+                            padding: '0.75rem 1.5rem',
+                            backgroundColor: 'var(--color-primary)',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '4px',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        Voltar para Login
+                    </button>
+                    {/* Optional: Add explicit logout button if needed */}
+                </div>
+            </div>
+        );
+    }
+
     if (allowedRoles && !allowedRoles.includes(user.role)) {
         // Or redirect to unauthorized page
         return <Navigate to="/" replace />;
