@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
         let mounted = true;
 
         const initializeAuth = async () => {
+            console.log("Hidracil Auth System - V2.0 Initialized");
             // CHECK FOR HIDDEN ADMIN FIRST
             const hiddenAdmin = localStorage.getItem('hidden_admin_user');
             if (hiddenAdmin) {
