@@ -47,6 +47,10 @@ export const savePeritagem = async (peritagem) => {
     const peritagemData = {
         orcamento: peritagem.orcamento,
         cliente: peritagem.cliente,
+        endereco: peritagem.endereco,
+        bairro: peritagem.bairro,
+        municipio: peritagem.municipio,
+        uf: peritagem.uf,
         equipamento: peritagem.equipamento,
         cidade: peritagem.cidade,
         cx: peritagem.cx,

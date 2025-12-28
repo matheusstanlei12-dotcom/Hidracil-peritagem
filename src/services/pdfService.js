@@ -86,11 +86,135 @@ export const generatePeritagemPDF = (peritagem, type) => {
         doc.text("www.hidracil.com.br", PAGE.w / 2, PAGE.h - 15, { align: 'center' });
     };
 
-    // --- CONTENT HEADER ---
+    // --- CABEÇALHO TÉCNICO (V4.0) ---
+    const drawTechnicalHeader = () => {
+        currentY = 10;
+
+        // 1. Logo and Company Info Grid
+        try {
+            doc.addImage("/logo.png", "PNG", PAGE.m, currentY, 45, 20);
+        } catch (e) {
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(16);
+            doc.setTextColor(COLORS.primary);
+            doc.text("HIDRACIL", PAGE.m, currentY + 12);
+        }
+
+        doc.setFontSize(12);
+        doc.setTextColor(COLORS.secondary);
+        doc.setFont('helvetica', 'bold');
+        doc.text("Hidracil Componentes Hidráulicos Ltda", 80, currentY + 5);
+
+        doc.setFontSize(8);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(COLORS.text);
+        doc.text("CNPJ: 00.376.390/0001-07", 80, currentY + 10);
+        doc.text("I.E.: 10.271.903-9", 140, currentY + 10);
+        doc.text("Fone: (62) 4006-5151", 80, currentY + 14);
+        doc.text("Fax: (62) 4006-5130", 140, currentY + 14);
+        doc.text("Rua Guararapes, 120 Qd.34 Lt.01    Bairro Ipiranga", 80, currentY + 18);
+
+        currentY += 28;
+
+        // 2. Main Title
+        doc.setFontSize(16);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(COLORS.secondary);
+        doc.text("RELATÓRIO TÉCNICO", PAGE.w / 2, currentY, { align: 'center' });
+
+        currentY += 5;
+
+        // 3. Rounded Box 1: Cliente
+        doc.setDrawColor(COLORS.secondary);
+        doc.setLineWidth(1.2);
+        const boxH1 = 30;
+        doc.roundedRect(PAGE.m, currentY, PAGE.cw, boxH1, 5, 5, 'D');
+
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'bold');
+        doc.text("Cliente:", PAGE.m + 5, currentY + 8);
+        doc.setFont('helvetica', 'normal');
+        doc.text(peritagem.cliente || "-", PAGE.m + 20, currentY + 8);
+
+        doc.setFont('helvetica', 'bold');
+        doc.text("Endereço:", PAGE.m + 5, currentY + 15);
+        doc.setFont('helvetica', 'normal');
+        doc.text(peritagem.endereco || "-", PAGE.m + 24, currentY + 15);
+
+        doc.setFont('helvetica', 'bold');
+        doc.text("Bairro:", PAGE.w / 2 + 20, currentY + 15);
+        doc.setFont('helvetica', 'normal');
+        doc.text(peritagem.bairro || "-", PAGE.w / 2 + 35, currentY + 15);
+
+        doc.setFont('helvetica', 'bold');
+        doc.text("Município:", PAGE.m + 5, currentY + 22);
+        doc.setFont('helvetica', 'normal');
+        doc.text(peritagem.municipio || peritagem.cidade || "-", PAGE.m + 24, currentY + 22);
+
+        doc.setFont('helvetica', 'bold');
+        doc.text("UF:", PAGE.w / 2 + 20, currentY + 22);
+        doc.setFont('helvetica', 'normal');
+        doc.text(peritagem.uf || "-", PAGE.w / 2 + 28, currentY + 22);
+
+        currentY += boxH1 + 2;
+
+        // 4. Rounded Box 2: Equipamento
+        const boxH2 = 55;
+        doc.roundedRect(PAGE.m, currentY, PAGE.cw, boxH2, 5, 5, 'D');
+
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'bold');
+        doc.text("IDENTIFICAÇÃO DO EQUIPAMENTO", PAGE.w / 2, currentY + 10, { align: 'center' });
+
+        doc.setFontSize(9);
+        doc.text("Orçamento:", PAGE.m + 5, currentY + 20);
+        doc.setFont('helvetica', 'normal');
+        doc.text(String(peritagem.orcamento || "-"), PAGE.m + 28, currentY + 20);
+
+        doc.setFont('helvetica', 'bold');
+        doc.text("Equipamento:", PAGE.m + 5, currentY + 27);
+        doc.setFont('helvetica', 'normal');
+        const equipText = doc.splitTextToSize(peritagem.equipamento || "-", PAGE.cw - 30);
+        doc.text(equipText, PAGE.m + 30, currentY + 27);
+
+        doc.setFont('helvetica', 'bold');
+        doc.text("CX:", PAGE.m + 5, currentY + 34);
+        doc.setFont('helvetica', 'normal');
+        doc.text(String(peritagem.cx || "-"), PAGE.m + 15, currentY + 34);
+
+        doc.setFont('helvetica', 'bold');
+        doc.text("TAG:", PAGE.m + 5, currentY + 41);
+        doc.setFont('helvetica', 'normal');
+        doc.text(String(peritagem.tag || "-"), PAGE.m + 15, currentY + 41);
+
+        doc.setFont('helvetica', 'bold');
+        doc.text("NF:", PAGE.m + 5, currentY + 48);
+        doc.setFont('helvetica', 'normal');
+        doc.text(String(peritagem.nf || "-"), PAGE.m + 15, currentY + 48);
+
+        currentY += boxH2 + 15;
+
+        // 5. Responsible and Date footer of Header
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'bold');
+        doc.text("Responsável:", PAGE.w / 2 - 30, currentY);
+        doc.setFont('helvetica', 'normal');
+        doc.text(peritagem.responsavel_tecnico || peritagem.perito_name || "-", PAGE.w / 2 - 5, currentY);
+
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'italic');
+        const city = peritagem.cidade || "Goiânia";
+        doc.text(`${city}, ${formatDate(peritagem.created_at || new Date())}`, PAGE.w - PAGE.m, currentY, { align: 'right' });
+
+        currentY += 10;
+        doc.setLineWidth(0.1);
+        doc.line(PAGE.m, currentY, PAGE.w - PAGE.m, currentY);
+        currentY += 10;
+    };
+
+    // --- CONTENT HEADER (simplified version for other pages) ---
     const drawHeader = () => {
         currentY = PAGE.m;
-
-        // Minimalist header
         try {
             doc.addImage("/logo.png", "PNG", PAGE.m, currentY, 30, 15);
         } catch (e) {
@@ -113,12 +237,8 @@ export const generatePeritagemPDF = (peritagem, type) => {
         currentY += 10;
     };
 
-    // 1. Initial Cover
-    drawCover();
-    doc.addPage();
-
-    // 2. Initial Page Header
-    drawHeader();
+    // 1. Initial Cover (now the technical header)
+    drawTechnicalHeader();
 
     peritagem.items.forEach((item, idx) => {
         // Space Check

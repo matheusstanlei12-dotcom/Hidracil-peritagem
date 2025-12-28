@@ -34,6 +34,10 @@ export default function NewPeritagem() {
     const [formData, setFormData] = useState({
         orcamento: '',
         cliente: '',
+        endereco: '',
+        bairro: '',
+        municipio: '',
+        uf: '',
         equipamento: '',
         cidade: '',
         cx: '',
@@ -175,6 +179,28 @@ export default function NewPeritagem() {
                             <div>
                                 <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.8rem', color: '#666', textAlign: 'center' }}>Cliente*</label>
                                 <input type="text" name="cliente" required value={formData.cliente} onChange={handleInputChange} className="form-input" />
+                            </div>
+                        </div>
+
+                        <div className="grid-2-cols" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.8rem', color: '#666', textAlign: 'center' }}>Endereço</label>
+                                <input type="text" name="endereco" value={formData.endereco} onChange={handleInputChange} className="form-input" />
+                            </div>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.8rem', color: '#666', textAlign: 'center' }}>Bairro</label>
+                                <input type="text" name="bairro" value={formData.bairro} onChange={handleInputChange} className="form-input" />
+                            </div>
+                        </div>
+
+                        <div className="grid-2-cols" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.8rem', color: '#666', textAlign: 'center' }}>Município</label>
+                                <input type="text" name="municipio" value={formData.municipio} onChange={handleInputChange} className="form-input" />
+                            </div>
+                            <div>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.8rem', color: '#666', textAlign: 'center' }}>UF</label>
+                                <input type="text" name="uf" value={formData.uf} onChange={handleInputChange} className="form-input" maxLength="2" />
                             </div>
                         </div>
 
