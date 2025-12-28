@@ -99,7 +99,7 @@ export default function Dashboard() {
                 <h1 style={{ marginBottom: '1.5rem' }}>Painel do Perito</h1>
 
                 <div style={{ backgroundColor: 'var(--color-surface)', padding: '1.5rem', borderRadius: 'var(--border-radius-md)', boxShadow: 'var(--shadow-sm)' }}>
-                    <h3 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Total de Análises Mensal</h3>
+                    <h3 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Total de Análises Mensais</h3>
                     <div style={{ height: '300px', width: '100%' }}>
                         <PeritoAnalysisChart />
                     </div>

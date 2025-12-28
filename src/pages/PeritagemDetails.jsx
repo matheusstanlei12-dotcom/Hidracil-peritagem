@@ -303,7 +303,7 @@ export default function PeritagemDetails() {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label style={{ fontSize: '0.8rem' }}>Margem calc.</label>
+                                                    <label style={{ fontSize: '0.8rem' }}>Margem Calculada</label>
                                                     <div className="read-only-field" style={{ backgroundColor: '#fff' }}>
                                                         {item.costs?.cost && item.budget?.sellPrice ?
                                                             `${(((item.budget.sellPrice - item.costs.cost) / item.budget.sellPrice) * 100).toFixed(1)}%`

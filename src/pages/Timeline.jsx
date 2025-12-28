@@ -156,7 +156,7 @@ export default function Timeline() {
                 }}
             >
                 <ArrowLeft size={18} />
-                Voltar para lista
+                Voltar para a lista
             </button>
 
             {/* Header Section */}
@@ -167,7 +167,7 @@ export default function Timeline() {
                         MONITORAMENTO: {selectedPeritagem.orcamento} - {selectedPeritagem.cliente}
                     </div>
                     <div style={{ fontSize: '2rem', fontWeight: '800', display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
-                        <span>Etapa atual:</span>
+                        <span>Etapa Atual:</span>
                         <span style={{ color: '#006945' }}>{currentStageData.label}</span>
                     </div>
                 </div>
