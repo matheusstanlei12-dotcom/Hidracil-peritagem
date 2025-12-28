@@ -67,20 +67,52 @@ export default function NewPeritagem() {
         setItems(items.map(item => item.id === id ? { ...item, [field]: value } : item));
     };
 
-    const handlePhotoUpload = (id, files) => {
+    const compressImage = (base64Str, maxWidth = 1200, maxHeight = 1200) => {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.src = base64Str;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > maxWidth) {
+                        height *= maxWidth / width;
+                        width = maxWidth;
+                    }
+                } else {
+                    if (height > maxHeight) {
+                        width *= maxHeight / height;
+                        height = maxHeight;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                resolve(canvas.toDataURL('image/jpeg', 0.7)); // 0.7 quality is a great balance
+            };
+        });
+    };
+
+    const handlePhotoUpload = async (id, files) => {
         if (files && files.length > 0) {
-            Array.from(files).forEach(file => {
+            const filesArray = Array.from(files);
+            for (const file of filesArray) {
                 const reader = new FileReader();
-                reader.onloadend = () => {
+                reader.onloadend = async () => {
+                    const compressed = await compressImage(reader.result);
                     setItems(prevItems => prevItems.map(item => {
                         if (item.id === id) {
-                            return { ...item, photos: [...(item.photos || []), reader.result] };
+                            return { ...item, photos: [...(item.photos || []), compressed] };
                         }
                         return item;
                     }));
                 };
                 reader.readAsDataURL(file);
-            });
+            }
         }
     };
 
