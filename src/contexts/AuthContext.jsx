@@ -7,6 +7,16 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    if (!supabase) {
+        return (
+            <div style={{ padding: '2rem', textAlign: 'center', color: '#e74c3c', fontFamily: 'sans-serif' }}>
+                <h1>Erro de Configuração</h1>
+                <p>A conexão com o banco de dados falhou.</p>
+                <p>Verifique se VITE_SUPABASE_URL está configurada na Vercel.</p>
+            </div>
+        );
+    }
+
     useEffect(() => {
         let mounted = true;
 
