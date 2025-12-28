@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -8,6 +8,8 @@ export default function Login() {
     const [error, setError] = useState('');
     const { login } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
+    const successMessage = location.state?.message;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -42,6 +44,7 @@ export default function Login() {
                 <img src="/logo.png" alt="HIDRACIL Logo" style={{ maxWidth: '200px', marginBottom: '1.5rem' }} />
                 <h2 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', color: 'var(--color-text-secondary)' }}>ACESSO AO SISTEMA</h2>
 
+                {successMessage && <div style={{ color: 'var(--color-success)', marginBottom: '1rem', backgroundColor: '#d4edda', padding: '0.75rem', borderRadius: '4px', border: '1px solid #c3e6cb', fontSize: '0.9rem' }}>{successMessage}</div>}
                 {error && <div style={{ color: 'var(--color-danger)', marginBottom: '1rem', backgroundColor: '#fee', padding: '0.5rem', borderRadius: '4px' }}>{error}</div>}
 
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>

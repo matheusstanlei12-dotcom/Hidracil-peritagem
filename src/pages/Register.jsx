@@ -38,7 +38,13 @@ export default function Register() {
                 formData.role,
                 formData.name
             );
-            navigate('/');
+
+            // Redirect to login with a special state to show success message
+            navigate('/login', {
+                state: {
+                    message: 'Solicitação de acesso enviada com sucesso! Aguarde a liberação pelo gestor para acessar o sistema.'
+                }
+            });
         } catch (err) {
             console.error('Registration error detailed:', err);
             const message = err.message || (typeof err === 'string' ? err : 'Falha ao criar conta.');

@@ -206,6 +206,12 @@ export const AuthProvider = ({ children }) => {
         });
 
         if (error) throw error;
+
+        // Force sign out immediately after sign up to prevent auto-login
+        // and ensure the user only accesses after manager review.
+        await supabase.auth.signOut();
+        setUser(null);
+
         return data;
     };
 
