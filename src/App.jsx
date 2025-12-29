@@ -21,7 +21,20 @@ import Reports from './pages/Reports';
 // Placeholder pages for routes that don't exist yet
 const Placeholder = ({ title }) => <div style={{ padding: '20px' }}><h1>{title}</h1><p>Em desenvolvimento...</p></div>;
 
+import { useEffect } from 'react';
+
 function App() {
+  useEffect(() => {
+    // Force title
+    document.title = "Hidracil - Sistema de Peritagem";
+
+    // Force Favicon refresh (cache busting)
+    const link = document.querySelector("link[rel~='icon']");
+    if (link) {
+      link.href = `/favicon.png?v=${new Date().getTime()}`;
+    }
+  }, []);
+
   return (
     <AuthProvider>
       <Router>
